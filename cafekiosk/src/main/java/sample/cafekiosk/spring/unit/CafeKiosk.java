@@ -4,12 +4,16 @@ import lombok.Getter;
 import sample.cafekiosk.spring.unit.beverage.Beverage;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import sample.cafekiosk.spring.unit.order.Order;
 
 @Getter
 public class CafeKiosk {
+
+    private static final LocalTime SHOP_OPEN_TIME = LocalTime.of(10, 0);
+    private static final LocalTime SHOP_CLOSE_TIME = LocalTime.of(22, 0);
 
     private final List<Beverage> beverages = new ArrayList<>();
 
@@ -47,6 +51,23 @@ public class CafeKiosk {
     }
 
     public Order createOrder(){
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        LocalTime currentTime = currentDateTime.toLocalTime();
+        if(currentTime.isBefore(SHOP_OPEN_TIME) || currentTime.isAfter(SHOP_CLOSE_TIME)){
+            // 오픈시간 이전 이거나 마김 시간 이후인 경우
+            throw  new IllegalArgumentException("주문 시간이 아닙니다. 관리자에게 문의하세요.");
+        }
+
         return new Order(LocalDateTime.now(), beverages);
+    }
+
+    public Order createOrder(LocalDateTime currentDateTime){
+        // 시간을 매개변수로 받아오는 경우, for TestCode
+        LocalTime currentTime = currentDateTime.toLocalTime();
+        if(currentTime.isBefore(SHOP_OPEN_TIME) || currentTime.isAfter(SHOP_CLOSE_TIME)){
+            throw  new IllegalArgumentException("주문 시간이 아닙니다. 관리자에게 문의하세요.");
+        }
+
+        return new Order(currentDateTime, beverages);
     }
 }

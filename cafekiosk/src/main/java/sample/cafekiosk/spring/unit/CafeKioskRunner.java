@@ -2,6 +2,9 @@ package sample.cafekiosk.spring.unit;
 
 import sample.cafekiosk.spring.unit.beverage.Americano;
 import sample.cafekiosk.spring.unit.beverage.Latte;
+import sample.cafekiosk.spring.unit.order.Order;
+
+import java.time.LocalDateTime;
 
 public class CafeKioskRunner {
 
@@ -15,7 +18,11 @@ public class CafeKioskRunner {
 
         int totalPrice = cafeKiosk.calculateTotalPrice();
         System.out.println("총 주문 가격 : " + totalPrice);
+
+        Order order = cafeKiosk.createOrder(LocalDateTime.now());
     }
+
+
 }
 
 
