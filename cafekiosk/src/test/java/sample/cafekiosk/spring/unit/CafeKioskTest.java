@@ -1,5 +1,6 @@
 package sample.cafekiosk.spring.unit;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sample.cafekiosk.spring.unit.beverage.Americano;
 import sample.cafekiosk.spring.unit.beverage.Latte;
@@ -28,6 +29,21 @@ class CafeKioskTest {
          */
     }
 
+    /**
+     * DisplayName 어노테이션
+     * JUnit5에서 사용할 수 있는 어노테이션으로서 값을 넣어서
+     * 해당 메소드가 어떤 역할을 하는지 표시할 수 있다.
+     * 만약, 그 이하 버전이라면 메소드 명에 한글을 넣어서 작성할 수 도 있다.
+     * ex) void 음료_1개_추가_테스트
+     *
+     * 또한, 기본 빌드 설정이 Gradle로 되어 있지만
+     * Intellij로 변경하면 DisplayName으로 테스트 코드가 돌아갈때 이름 확인이 가능
+     * (Setting - Build)
+     *
+     */
+//    @DisplayName("음료 1개 추가 테스트")
+
+    @DisplayName("음료를 1개 추가하면 주문 목록에 남긴다.")
     @Test
     void add() {
         CafeKiosk cafeKiosk = new CafeKiosk();
