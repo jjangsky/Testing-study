@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import sample.cafekiosk.spring.unit.beverage.Americano;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 
 class CafeKioskTest {
@@ -30,6 +31,32 @@ class CafeKioskTest {
 
         assertThat(cafeKiosk.getBeverages()).hasSize(1);
         assertThat(cafeKiosk.getBeverages().get(0).getName()).isEqualTo("아메리카노");
+    }
+
+    @Test
+    void addServeralBeverages() {
+        CafeKiosk cafeKiosk = new CafeKiosk();
+        Americano americano = new Americano();
+
+        cafeKiosk.add(americano, 2);
+
+        // isEqualTo 메소드는 객체 비교도 가능함
+        assertThat(cafeKiosk.getBeverages().get(0)).isEqualTo(americano);
+        assertThat(cafeKiosk.getBeverages().get(1)).isEqualTo(americano);
+    }
+
+    @Test
+    void addZeroBeverages() {
+        CafeKiosk cafeKiosk = new CafeKiosk();
+        Americano americano = new Americano();
+
+        // 예외가 발생될 테스트 코드는 `assertThatThrownBy` 사용
+        // isInstanceOf 메소드로 오류가 일치하는지 확인하고 hasMessage로 오류 내용이 일치하는지 확인
+        // 만약 오류 내용이 일치하지 않으면 테스트 코드 실패로 이어짐
+        assertThatThrownBy(() -> cafeKiosk.add(americano, 0))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("음료는 1잔 이상 주문할 수 있습니다.");
+
     }
 
     @Test

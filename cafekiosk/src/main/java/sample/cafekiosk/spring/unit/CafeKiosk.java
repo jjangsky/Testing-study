@@ -13,9 +13,21 @@ public class CafeKiosk {
 
     private final List<Beverage> beverages = new ArrayList<>();
 
-    public void add(Beverage beverage) {
+    public void add(Beverage beverage){
         // 인터페이스를 매개변수로 받아 아메리카노, 라떼 둘 다 받을 수 있음
         beverages.add(beverage);
+    }
+
+    public void add(Beverage beverage, int count) {
+        // 인터페이스를 매개변수로 받아 아메리카노, 라떼 둘 다 받을 수 있음
+        if(count <= 0){
+            throw new IllegalArgumentException("음료는 1잔 이상 주문할 수 있습니다.");
+        }
+
+
+        for(int i = 0; i< count; i++){
+            beverages.add(beverage);
+        }
     }
 
     public void remove(Beverage beverage){
