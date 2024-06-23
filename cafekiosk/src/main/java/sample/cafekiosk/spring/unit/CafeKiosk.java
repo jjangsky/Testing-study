@@ -50,6 +50,11 @@ public class CafeKiosk {
         return totalPrice;
     }
 
+    // TDD 방법
+//    public int calculateTotalPrice(){
+//        return 8500;
+//    }
+
     public Order createOrder(){
         LocalDateTime currentDateTime = LocalDateTime.now();
         LocalTime currentTime = currentDateTime.toLocalTime();
