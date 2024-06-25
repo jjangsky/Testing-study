@@ -145,17 +145,22 @@ class CafeKioskTest {
 
     /**
      * TDD 방식
+     * 테스트 코드를 먼저 작성 후, 프로덕션 코드 작성 방식
      */
 
+    @DisplayName("주문 목록에 담긴 상품들의 총 금액을 계산할 수 있다.")
     @Test
     void calculateTotalPrice(){
+        // given - 설정 단계
         CafeKiosk cafeKiosk = new CafeKiosk();
         Americano americano = new Americano();
         Latte latte = new Latte();
 
+        // when - 수행 단계, 보통 한줄
         cafeKiosk.add(americano);
         cafeKiosk.add(latte);
 
+        // then - 결과 단계
         int totalPrice = cafeKiosk.calculateTotalPrice();
         assertThat(totalPrice).isEqualTo(8500);
 
