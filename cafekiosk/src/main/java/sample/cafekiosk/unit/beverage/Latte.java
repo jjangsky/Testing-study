@@ -1,6 +1,4 @@
-package sample.cafekiosk.spring.unit.beverage;
-
-import sample.cafekiosk.spring.unit.beverage.Beverage;
+package sample.cafekiosk.unit.beverage;
 
 public class Latte implements Beverage {
     @Override
