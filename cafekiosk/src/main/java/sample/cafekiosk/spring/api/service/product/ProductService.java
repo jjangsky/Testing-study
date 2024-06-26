@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import sample.cafekiosk.spring.api.service.product.response.ProductResponse;
 import sample.cafekiosk.spring.domain.product.Product;
 import sample.cafekiosk.spring.domain.product.ProductRepository;
-import sample.cafekiosk.spring.domain.product.ProductSellingType;
+import sample.cafekiosk.spring.domain.product.ProductSellingStatus;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +17,7 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     public List<ProductResponse> getSellingProducts(){
-        List<Product> prodcuts = productRepository.findAllBySellingTypeIn(ProductSellingType.forDisplay());
+        List<Product> prodcuts = productRepository.findAllBySellingStatusIn(ProductSellingStatus.forDisplay());
 
         /**
          * of 메소드를 사용하여 Entity 객체를 Dto 객체로 변환
