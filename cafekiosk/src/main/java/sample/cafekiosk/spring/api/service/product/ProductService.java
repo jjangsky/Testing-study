@@ -16,6 +16,13 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
+    /**
+     * Business Layer
+     * 비즈니스 로직을 구현하는 역할
+     * Persistence Layer와 상호작용(Data를 읽고 쓰는 행위)를 통해 비즈니스 로직을 전개시킨다.
+     * 트랜잭션을 보장해야한다.
+     */
+
     public List<ProductResponse> getSellingProducts(){
         List<Product> prodcuts = productRepository.findAllBySellingStatusIn(ProductSellingStatus.forDisplay());
 

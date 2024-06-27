@@ -26,7 +26,8 @@ class ProductRepositoryTest {
 
     /**
      * Repository 테스트는 단위 테스트에 가까움
-     * 계층 자체게 데이터베이스 Access 로직만 갖고 있어서
+     * 계층 자체가 Data Access의 역할을 해야한다.
+     * 비즈니스 가공 로직이 포함되어서는 안되며 Data에 대한 CRUD에만 집중해야 한다.
      */
 
     @Autowired
