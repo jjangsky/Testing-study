@@ -19,4 +19,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
      * 및 QueryDsl을 실행할 수 있고 심지어 JPA 환경이 아닐수 도 있음
      * 그리고 미래에 어떤 형태로 변경될 지 모르기 때문에 보장을 해줘야함
      */
+
+    List<Product> findAllByProductNumberIn(List<String> productNumbers);
 }
