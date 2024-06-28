@@ -30,7 +30,7 @@ class OrderServiceTest {
     @Autowired
     private OrderService orderService;
 
-    @DisplayName("주문번호 리슽트를 받아 주문을 생성한다.")
+    @DisplayName("주문번호 리스트를 받아 주문을 생성한다.")
     @Test
     void createOrder(){
         // given
@@ -59,6 +59,38 @@ class OrderServiceTest {
                 .containsExactlyInAnyOrder(
                         tuple("001", 1000),
                         tuple("002", 3000)
+                );
+    }
+
+    @DisplayName("중복되는 상품번호 리스트로 주문을 생성할 수 있다.")
+    @Test
+    void createOrderWithDuplicateProductNumbers(){
+        // given
+        // 상품 설정
+        Product product1 = createProdcut(HANDMADE, "001", 1000);
+        Product product2 = createProdcut(HANDMADE, "002", 3000);
+        Product product3 = createProdcut(HANDMADE, "003", 5000);
+        productRepository.saveAll(List.of(product1, product2, product3));
+
+        // 주문설정 - 중복 설정
+        OrderCreateRequest request=  OrderCreateRequest.builder()
+                .productNumbers(List.of("001", "001"))
+                .build();
+
+        // when
+        LocalDateTime registeredDateTime = LocalDateTime.now();
+        OrderResponse orderResponse = orderService.createOrder(request, registeredDateTime);
+
+        // then
+        assertThat(orderResponse.getId()).isNotNull();
+        assertThat(orderResponse)
+                .extracting("registeredDateTime", "totalPrice")
+                .contains(registeredDateTime, 2000);
+        assertThat(orderResponse.getProducts()).hasSize(2)
+                .extracting("productNumber", "price")
+                .containsExactlyInAnyOrder(
+                        tuple("001", 1000),
+                        tuple("001", 1000)
                 );
     }
 
