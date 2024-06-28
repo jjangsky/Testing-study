@@ -1,5 +1,6 @@
 package sample.cafekiosk.spring.api.service.order;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import sample.cafekiosk.spring.api.controller.order.request.OrderCreateRequest;
 import sample.cafekiosk.spring.api.service.order.response.OrderResponse;
+import sample.cafekiosk.spring.domain.order.OrderRepository;
+import sample.cafekiosk.spring.domain.orderproduct.OrderProductRepository;
 import sample.cafekiosk.spring.domain.product.Product;
 import sample.cafekiosk.spring.domain.product.ProductRepository;
 import sample.cafekiosk.spring.domain.product.ProductType;
@@ -28,7 +31,30 @@ class OrderServiceTest {
     private ProductRepository productRepository;
 
     @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private OrderProductRepository orderProductRepository;
+
+    @Autowired
     private OrderService orderService;
+
+    @AfterEach
+    void tearDown(){
+        /**
+         * 테스트를 동시에 실행시키는 경우, 서로의 테스트가 영향을 미칠 수 있다.
+         * ex) 이전 테스트 했던 데이터가 남아있는 경우
+         * Given절에 테스트하기 위해 설정한 데이터를 테스트 끝날때 마다 `@AfterEach` 에서
+         * 데이터를 초기화 시키는 작업이 필요
+         *
+         * 추가적으로 테스트 최상단에 `@SpringBootTest`와 `@DataJpaTest`의 차이점이 또 존재하는데
+         * `@DataJpaTest` 의 경우 내부적으로 @Transactional이 걸려있어 테스트가 끝나면 자동으로 Roll back 처리 된다.
+         * -> tearDown 사용 안하고 추가적으로 @Transactional 추가하면 자동으로 Roll back이 된다.
+         */
+        productRepository.deleteAllInBatch();
+        orderProductRepository.deleteAllInBatch();
+        orderRepository.deleteAllInBatch();
+    }
 
     @DisplayName("주문번호 리스트를 받아 주문을 생성한다.")
     @Test
