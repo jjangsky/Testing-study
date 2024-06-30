@@ -13,7 +13,6 @@ import sample.cafekiosk.spring.domain.BaseEntity;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-
 public class Stock extends BaseEntity {
 
 
