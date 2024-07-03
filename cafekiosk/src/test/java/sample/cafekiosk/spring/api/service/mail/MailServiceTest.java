@@ -3,10 +3,7 @@ package sample.cafekiosk.spring.api.service.mail;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.Spy;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import sample.cafekiosk.spring.client.mail.MailsendClient;
 import sample.cafekiosk.spring.domain.history.mail.MailSendHistory;
@@ -66,6 +63,17 @@ class MailServiceTest {
         // stub 처리(@Spy 시 사용 불가)
         when(mailSendClient.sendEmail(anyString(), anyString(), anyString(), anyString()))
                 .thenReturn(true);
+
+        /**
+         * BDDMockito
+         * given 절에 when이라는 문법이 있는게 이상하다고 생각하여 BDDMockito로
+         * given 이라는 메소드를 사용하여 Stubing 처리
+         * BDDMockito는 내부적으로 Mockito를 상속받고 있어 단순하게 이름만 바꾼거라 봐도 무방함
+         *
+         * BDDMockito.given(mailSendClient.sendEmail(anyString(), anyString(), anyString(), anyString()))
+         *      .willReturn(true);
+         */
+
 
         /**
          * `@Spy` 시 사용, 실제 객체를 사용하기 때문
