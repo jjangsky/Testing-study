@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import sample.cafekiosk.spring.IntegrationTestSupport;
 import sample.cafekiosk.spring.client.mail.MailsendClient;
 import sample.cafekiosk.spring.domain.history.mail.MailSendHistory;
 import sample.cafekiosk.spring.domain.history.mail.MailSendHistoryRepository;
@@ -30,8 +31,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static sample.cafekiosk.spring.domain.product.ProductSellingStatus.SELLING;
 import static sample.cafekiosk.spring.domain.product.ProductType.HANDMADE;
 
-@SpringBootTest
-class OrderStatisticsServiceTest {
+
+class OrderStatisticsServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private OrderStatisticsService orderStatisticsService;
@@ -48,8 +49,8 @@ class OrderStatisticsServiceTest {
     @Autowired
     private MailSendHistoryRepository mailSendHistoryRepository;
 
-    @MockBean // component로 선언되어 빈 설정 가능
-    private MailsendClient mailsendClient;
+//    @MockBean // component로 선언되어 빈 설정 가능
+//    private MailsendClient mailsendClient;
     /**
      * 이전의 Mcok 테스트에서는 Service Layer를 단순하게 Mocking 처리만 하였지만
      * Mock 이라는 것이 가짜 객체를 넣어놓고 이 객체가 어떻게 행동할 수 있도록
