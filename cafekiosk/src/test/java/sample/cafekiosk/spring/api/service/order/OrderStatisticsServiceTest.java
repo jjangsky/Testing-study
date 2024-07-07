@@ -90,7 +90,7 @@ class OrderStatisticsServiceTest extends IntegrationTestSupport {
          * 그 이후 true 값을 반환한다고 설정
          * (stubing)
          */
-        Mockito.when(mailsendClient.sendEmail(any(String.class), any(String.class), any(String.class), any(String.class)))
+        Mockito.when(mailSendClient.sendEmail(any(String.class), any(String.class), any(String.class), any(String.class)))
                 .thenReturn(true);
 
         // when
