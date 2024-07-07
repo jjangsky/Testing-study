@@ -66,10 +66,9 @@ public class ProductControllerDocsTest extends RestDocsSupport {
                         .build()
                 );
 
-        mockMvc.perform(
-                        post("/api/v1/products/new")
-                                .content(objectMapper.writeValueAsString(request))
-                                .contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(post("/api/v1/products/new")
+                        .content(objectMapper.writeValueAsString(request))
+                        .contentType(MediaType.APPLICATION_JSON)
                 )
 
                 .andDo(print())
